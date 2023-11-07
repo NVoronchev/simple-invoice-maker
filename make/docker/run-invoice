@@ -1,0 +1,53 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR="$(dirname "$(readlink -e "${BASH_SOURCE[0]}")")"
+REPO_ROOT_DIT="$(readlink -e "${SCRIPT_DIR}/../..")"
+DOCKER_BINARY="${DOCKER_BINARY:-docker}"
+
+###
+
+if which cygpath 1>/dev/null ; then
+    path4docker()
+    {
+        echo "$(cygpath -w "${1}")"
+    }
+else
+    path4docker()
+    {
+        echo "${1}"
+    }
+fi
+
+exitWithError()
+{
+    echo "ERORR: $@"
+    exit 1
+}
+
+###
+
+invoice_tex_file="$(readlink -e "${1}")" || exitWithError "Invoice's TeX file '${1}' not found."
+shift
+invoice_args=("${@}")
+
+name="simple_invoice_maker"
+image="${name}:latest"
+invoice_mount="/src/invoice"
+
+"${DOCKER_BINARY}" build \
+    --progress=plain \
+    --build-arg INVOICE_MOUNT=${invoice_mount} \
+    -f "$(path4docker ${SCRIPT_DIR})/Dockerfile" \
+    --tag ${image} \
+    "$(path4docker ${REPO_ROOT_DIT})"
+
+set -x
+"${DOCKER_BINARY}" run \
+    --rm \
+    --name ${name} \
+    --volume "$(path4docker "$(dirname "${invoice_tex_file}")"):${invoice_mount}" \
+    ${DOCKERARGS} \
+    ${image} \
+    "/invoice" "${invoice_mount}/$(basename "${invoice_tex_file}")" "${invoice_args[@]}"

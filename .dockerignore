@@ -1,0 +1,7 @@
+*
+!make/
+!src/
+
+src/*
+!src/*.tex
+!src/*.cls

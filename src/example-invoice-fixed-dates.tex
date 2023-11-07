@@ -1,0 +1,56 @@
+\documentclass[a4paper, 10pt]{simple-invoice}
+
+\currency{\$}
+
+\providecommand{\facsimileFile}{facsimile.jpg}
+
+\invoice
+    {OD0001} % Invoice ID
+    {Oct 31, 39997} % Invoice date
+    [Dec 15, 39997] % Invoice due date
+
+\me
+    {Octek Deleukius} % Your name
+    % [Business Number] % Your business id type
+    {0123456} % Your business id
+    { % Your address
+        Hive Gamma \\
+        Pintras XIII, Ultima Sector \\
+        123456
+    }
+    [+1 123 1234567890] % Your phone number
+    [octek.deleukius@pintras-online.tech] % Your e-mail
+
+\company
+    {Osal Gux-Grarv's Forge} % Company name
+    [Registration number] % Company business id type
+    {6543210} % Company business id
+    { % Company address
+        Hive Alpha \\
+        Pintras XIII, Ultima Sector \\
+        654321
+    }
+    % [] % Company phone number
+    % [] % Company e-mail
+
+\task
+    {Omnissiah blessed software development} % Task name
+    [ % Task description
+        Period: Oct 1 ‐ Oct 31, 39997.
+        Tasks details available by the Client’s issue tracking system.
+    ]
+    {11.5} % Rate (payment per hour)
+    {600} % Hours
+
+\sign
+    {\facsimileFile} % Facsimile path
+    % [] $ Signature date
+
+\additional
+{
+    My credit account: \\
+    - Bank name: Unified Imperial Bank, Pintras XIII Branch \\
+    - Account ID: Ultima-PintrasXIII-80a545e6-9dc5-4983-9ec9-28b2c9401c99
+}
+
+\placeInvoiceDocument

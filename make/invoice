@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -ex
+
+###
+
+exitWithUsage()
+{
+    echo "ERORR: $@"
+    echo
+    echo "Usage:"
+    echo "    $(basename "${BASH_SOURCE[0]}") <invoice_tex_file> [-- [<tex_macro_name>=<value>] ...]"
+    echo
+    exit 1
+}
+
+###
+
+invoice_tex_file="$(readlink -e "${1}")" || exitWithUsage "Provide path to the invoice LaTeX file"
+shift
+
+tex_commands="\\input{$(basename ${invoice_tex_file})}"
+if [ "${1}" = "--" ] ; then
+    shift
+    while [ "${#}" -ne "0" ] ; do
+        tex_commands="\\providecommand{\\${1%%=*}}{${1#*=}} ${tex_commands}"
+        shift
+    done
+fi
+
+pdflatex \
+    -interaction=nonstopmode \
+    -output-directory="$(dirname "${invoice_tex_file}")" \
+    "${tex_commands}"

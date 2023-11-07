@@ -1,0 +1,60 @@
+\documentclass[a4paper, 10pt]{simple-invoice}
+
+\currency{\$}
+
+\providecommand{\invoiceYear}{\number\year}
+\providecommand{\invoiceMonth}{\number\month}
+\providecommand{\dueTermsDays}{45}
+\providecommand{\facsimileFile}{facsimile.jpg}
+
+\invoiceMonthly
+    {OD0001} % Invoice ID
+    {\invoiceYear} % Invoice date: year
+    {\invoiceMonth} % Invoice date: month's number
+    [\dueTermsDays] % Due date: days starting from invoice date
+
+\me
+    {Octek Deleukius} % Your name
+    % [Business Number] % Your business id type
+    {0123456} % Your business id
+    { % Your address
+        Hive Gamma \\
+        Pintras XIII, Ultima Sector \\
+        123456
+    }
+    [+1 123 1234567890] % Your phone number
+    [octek.deleukius@pintras-online.tech] % Your e-mail
+
+\company
+    {Osal Gux-Grarv's Forge} % Company name
+    [Registration number] % Company business id type
+    {6543210} % Company business id
+    { % Company address
+        Hive Alpha \\
+        Pintras XIII, Ultima Sector \\
+        654321
+    }
+    % [] % Company phone number
+    % [] % Company e-mail
+
+\task
+    {Omnissiah blessed software development} % Task name
+    [ % Task description
+        Period: \monthDaysRangeText.
+        Tasks details available by the Client’s issue tracking system.
+    ]
+    {11.5} % Rate (payment per hour)
+    {600} % Hours
+
+\sign
+    {facsimile.jpg} % Facsimile path
+    % [] $ Signature date
+
+\additional
+{
+    My credit account: \\
+    - Bank name: Unified Imperial Bank, Pintras XIII Branch \\
+    - Account ID: Ultima-PintrasXIII-80a545e6-9dc5-4983-9ec9-28b2c9401c99
+}
+
+\placeInvoiceDocument
